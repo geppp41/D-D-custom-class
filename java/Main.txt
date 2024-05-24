@@ -1,0 +1,52 @@
+import java.io.IOException;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import java.io.File;
+import java.io.IOException;
+import java.io.FileWriter;
+@SuppressWarnings("unused")
+class JsonDemo {
+   @SuppressWarnings({ "removal", "unchecked" })
+   public static void main(String[] args) throws IOException {
+      JSONArray list1 = new JSONArray();
+      list1.add("foo");
+      list1.add(new Integer(100));
+
+      JSONArray list2 = new JSONArray();       
+      list2.add(new Double(1000.21));
+      list2.add(new Boolean(true));
+      list2.add(null);
+
+      JSONObject obj = new JSONObject();
+
+      obj.put("name", "foo");
+      obj.put("num", new Integer(100));
+      obj.put("balance", new Double(1000.21));
+      obj.put("is_vip", new Boolean(true));
+     
+      obj.put("list1", list1); 
+      obj.put("list2", list2);
+      
+      System.out.println(obj);  
+      try {
+         File myObj = new File("filename.json");
+         if (myObj.createNewFile()) {
+           System.out.println("File created: " + myObj.getName());
+         } else {
+           System.out.println("File already exists.");
+         }
+       } catch (IOException e) {
+         System.out.println("An error occurred.");
+         e.printStackTrace();
+       }
+       try {
+         FileWriter myWriter = new FileWriter("filename.json");
+         myWriter.write(obj);
+         myWriter.close();
+         System.out.println("Successfully wrote to the file.");
+       } catch (IOException e) {
+         System.out.println("An error occurred.");
+         e.printStackTrace();
+       }     
+   }
+}
